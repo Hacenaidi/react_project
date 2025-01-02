@@ -10,7 +10,7 @@ import { DataTable } from 'primereact/datatable'
 import { Button } from 'primereact/button'
 import { Column } from 'primereact/column'
 import { Toast } from 'primereact/toast'
-import { fetchTicketsAnAC, deleteTicket } from '../api/tickets'
+import { fetchTicketsAnAC, deleteTicket } from '../api/Tickets'
 
 export const Route = createFileRoute('/History')({
   component: () => <History />
@@ -213,7 +213,7 @@ function History() {
       </html>
     `
 
-    const newWindow = window.open('', '_blank', 'width=600,height=400')
+    const newWindow = window.open('', '_blank', 'width=900,height=600')
     newWindow.document.write(ticketContent)
     newWindow.document.close()
     newWindow.print()

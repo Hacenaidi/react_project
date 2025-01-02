@@ -63,7 +63,7 @@ const Header = () => {
           className="pi pi-bell p-overlay-badge"
           style={{ fontSize: '1.5rem' }}
         >
-          <Badge value="2"></Badge>
+          <Badge value="3"></Badge>
         </i>
         <PanelMenu model={items} className="w-full md:w-10rem my-3" />
       </div>

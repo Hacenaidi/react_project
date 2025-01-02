@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { InputText } from 'primereact/inputtext'
 import { FloatLabel } from 'primereact/floatlabel'
 import { Password } from 'primereact/password'
@@ -7,7 +7,7 @@ import { Card } from 'primereact/card'
 import { Button } from 'primereact/button'
 import { useMutation } from '@tanstack/react-query'
 import { Loginservice } from '../../api/auth'
-
+import { jwtDecode } from 'jwt-decode'
 export const Route = createFileRoute('/auth/login')({
   component: () => <Login />
 })
@@ -17,7 +17,16 @@ function Login() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
-
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      const decodedToken = jwtDecode(token)
+      const currentTime = Date.now() / 1000
+      if (decodedToken.exp > currentTime) {
+        navigate({ to: '/home' })
+      }
+    }
+  }, [navigate])
   const { isLoading, mutate: doLogin } = useMutation({
     mutationFn: Loginservice,
     onError: (err) => {

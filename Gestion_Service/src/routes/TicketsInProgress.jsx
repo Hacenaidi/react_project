@@ -14,7 +14,7 @@ import {
   fetchTicketsEnCours,
   confirmTicket,
   cancelTicket
-} from '../api/tickets'
+} from '../api/Tickets'
 
 export const Route = createFileRoute('/TicketsInProgress')({
   component: () => <TicketsEnCours />

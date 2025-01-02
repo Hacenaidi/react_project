@@ -1,6 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { React, useEffect, useState, useRef } from 'react'
-import { useQuery, useQueries } from '@tanstack/react-query'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { React, useEffect, useRef } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import Header from '../components/Header'
 import { Card } from 'primereact/card'
 import Navbar from '../components/Navbar'
@@ -15,6 +15,7 @@ import {
   fetchNbrTicketDat,
   fetchNbrTickSem
 } from '../api/home'
+import { jwtDecode } from 'jwt-decode'
 
 export const Route = createFileRoute('/Home')({
   component: () => <Home />
@@ -22,6 +23,21 @@ export const Route = createFileRoute('/Home')({
 
 function Home() {
   const toast = useRef(null)
+  const navigate = useNavigate()
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      navigate({ to: '/auth/login' })
+    } else {
+      const decodedToken = jwtDecode(token)
+      const currentTime = Date.now() / 1000
+      if (decodedToken.exp < currentTime) {
+        localStorage.removeItem('token')
+        localStorage.removeItem('supportId')
+        navigate({ to: '/auth/login' })
+      }
+    }
+  }, [navigate])
   const {
     data: supports,
     isLoading: isLoadingSupports,

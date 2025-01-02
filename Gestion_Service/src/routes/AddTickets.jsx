@@ -7,7 +7,7 @@ import { Steps } from 'primereact/steps'
 import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
 import { Dropdown } from 'primereact/dropdown'
-import { Card } from 'primereact/card'
+
 import { Toast } from 'primereact/toast'
 import { InputNumber } from 'primereact/inputnumber'
 import { InputTextarea } from 'primereact/inputtextarea'
@@ -56,20 +56,18 @@ function AddTickets() {
   const { isLoading: isLoadingcreat, mutate: docreate } = useMutation({
     mutationFn: createTicket,
     onSuccess: () => {
-      // Afficher un toast de succès
       toast.current.show({
         severity: 'success',
         summary: 'Succès',
         detail: 'Ticket ajouté avec succès',
         life: 3000
       })
-      // Rediriger vers la page d'accueil après un délai
+
       setTimeout(() => {
         navigate({ to: '/Home' })
       }, 1000)
     },
     onError: (error) => {
-      // Gérer les erreurs
       setErrors({ ...errors, ...error })
     }
   })
