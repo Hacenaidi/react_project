@@ -79,11 +79,6 @@ function AddTickets() {
     setFormData((prevData) => ({ ...prevData, [name]: value }))
   }
 
-  const handleDropdownChange = (e) => {
-    const { name, value } = e.value
-    setFormData((prevData) => ({ ...prevData, [name]: value }))
-  }
-
   const validateStep = (step) => {
     let newErrors = {}
     switch (step) {
